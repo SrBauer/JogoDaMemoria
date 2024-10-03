@@ -1,0 +1,9 @@
+{
+    "cards": [
+        { "id": 1, "image": "img/dog1.png" },
+        { "id": 2, "image": "img/dog2.png" },
+        { "id": 3, "image": "img/dog3.png" },
+        { "id": 4, "image": "img/dog4.png" },
+        { "id": 5, "image": "img/dog5.png" }
+    ]
+}
