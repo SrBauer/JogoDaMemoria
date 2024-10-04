@@ -32,11 +32,78 @@ function createCards(cards) {
     });
 }
 
-// Carregar o JSON e criar as cartas
-fetch('cards.json')
-    .then(response => response.json())
-    .then(data => {
-        const shuffledCards = shuffle(data.cards);
-        createCards(shuffledCards);
-    })
-    .catch(error => console.error('Erro ao carregar as cartas:', error));
+// Função para inicializar o jogo
+function initGame() {
+    fetch('assets/json/cards.json')
+        .then(response => response.json())
+        .then(data => {
+            const shuffledCards = shuffle(data.cards);
+            createCards(shuffledCards);
+            addEventListeners();
+        })
+        .catch(error => console.error('Erro ao carregar as cartas:', error));
+}
+
+// Função para adicionar event listeners
+function addEventListeners() {
+    const cards = document.querySelectorAll('.memory-card');
+    cards.forEach(card => card.addEventListener('click', flipCard));
+}
+
+// Função para virar a carta
+function flipCard() {
+    if (lockBoard) return;
+    if (this === firstCard) return;
+
+    this.classList.add('flip');
+
+    if (!hasFlippedCard) {
+        hasFlippedCard = true;
+        firstCard = this;
+        return;
+    }
+
+    secondCard = this;
+    checkForMatch();
+}
+
+// Variáveis globais
+let hasFlippedCard = false;
+let lockBoard = false;
+let firstCard, secondCard;
+
+// Função para verificar se as cartas são iguais
+function checkForMatch() {
+    let isMatch = firstCard.dataset.card === secondCard.dataset.card;
+
+    isMatch ? disableCards() : unflipCards();
+}
+
+// Função para desabilitar as cartas quando são iguais
+function disableCards() {
+    firstCard.removeEventListener('click', flipCard);
+    secondCard.removeEventListener('click', flipCard);
+
+    resetBoard();
+}
+
+// Função para desvirar as cartas quando não são iguais
+function unflipCards() {
+    lockBoard = true;
+
+    setTimeout(() => {
+        firstCard.classList.remove('flip');
+        secondCard.classList.remove('flip');
+
+        resetBoard();
+    }, 1500);
+}
+
+// Função para resetar o tabuleiro
+function resetBoard() {
+    [hasFlippedCard, lockBoard] = [false, false];
+    [firstCard, secondCard] = [null, null];
+}
+
+// Inicializar o jogo quando a página carregar
+document.addEventListener('DOMContentLoaded', initGame);

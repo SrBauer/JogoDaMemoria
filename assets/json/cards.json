@@ -1,9 +1,12 @@
 {
     "cards": [
-        { "id": 1, "image": "img/dog1.png" },
-        { "id": 2, "image": "img/dog2.png" },
-        { "id": 3, "image": "img/dog3.png" },
-        { "id": 4, "image": "img/dog4.png" },
-        { "id": 5, "image": "img/dog5.png" }
+        { "id": 1, "image": "assets/img/animais/abelha.png" },
+        { "id": 2, "image": "assets/img/animais/porco.png" },
+        { "id": 3, "image": "assets/img/animais/cao.png" },
+        { "id": 4, "image": "assets/img/animais/caranguejo.png" },
+        { "id": 5, "image": "assets/img/animais/papagaio.png" },
+        { "id": 6, "image": "assets/img/animais/serpente.png" },
+        { "id": 7, "image": "assets/img/animais/tartaruga-marinha.png" },
+        { "id": 8, "image": "assets/img/animais/tigre.png" }
     ]
 }

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo da Memória</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
     <div class="game-container">
         <div class="header">
@@ -14,21 +16,10 @@
             <button class="btn-theme">🎨</button>
         </div>
         <div class="memory-game">
-            <!-- Cartas do jogo -->
-            <div class="memory-card" data-card="1">
-                <img class="front-face" src="dog1.png" alt="Dog 1">
-                <img class="back-face" src="back.png" alt="Back">
-            </div>
-            <div class="memory-card" data-card="1">
-                <img class="front-face" src="dog1.png" alt="Dog 1">
-                <img class="back-face" src="back.png" alt="Back">
-            </div>
-            <div class="memory-card" data-card="2">
-                <img class="front-face" src="dog2.png" alt="Dog 2">
-                <img class="back-face" src="back.png" alt="Back">
-            </div>
-            <!-- Continue criando pares de cartas -->
+            <!-- As cartas serão adicionadas dinamicamente pelo JavaScript -->
         </div>
     </div>
+    <script src="assets/js/cards.js"></script>
 </body>
+
 </html>
