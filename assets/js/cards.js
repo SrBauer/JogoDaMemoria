@@ -7,28 +7,33 @@ function shuffle(array) {
     return array;
 }
 
+// Função para duplicar e embaralhar as cartas
+function duplicateAndShuffleCards(cards) {
+    let duplicatedCards = cards.concat(cards);
+    return shuffle(duplicatedCards);
+}
+
 // Função para criar as cartas
 function createCards(cards) {
     const memoryGame = document.querySelector('.memory-game');
-    cards.forEach(card => {
-        // Criação de dois cards para formar o par
-        for (let i = 0; i < 2; i++) {
-            const memoryCard = document.createElement('div');
-            memoryCard.classList.add('memory-card');
-            memoryCard.setAttribute('data-card', card.id);
+    const shuffledCards = duplicateAndShuffleCards(cards);
+    
+    shuffledCards.forEach(card => {
+        const memoryCard = document.createElement('div');
+        memoryCard.classList.add('memory-card');
+        memoryCard.setAttribute('data-card', card.id);
 
-            const frontFace = document.createElement('img');
-            frontFace.classList.add('front-face');
-            frontFace.src = card.image;
+        const frontFace = document.createElement('img');
+        frontFace.classList.add('front-face');
+        frontFace.src = card.image;
 
-            const backFace = document.createElement('img');
-            backFace.classList.add('back-face');
-            backFace.src = 'img/back.png';
+        const backFace = document.createElement('img');
+        backFace.classList.add('back-face');
+        backFace.src = 'assets/img/temaCarta/pata.png'; // Nova imagem de fundo
 
-            memoryCard.appendChild(frontFace);
-            memoryCard.appendChild(backFace);
-            memoryGame.appendChild(memoryCard);
-        }
+        memoryCard.appendChild(frontFace);
+        memoryCard.appendChild(backFace);
+        memoryGame.appendChild(memoryCard);
     });
 }
 
@@ -37,17 +42,38 @@ function initGame() {
     fetch('assets/json/cards.json')
         .then(response => response.json())
         .then(data => {
-            const shuffledCards = shuffle(data.cards);
-            createCards(shuffledCards);
-            addEventListeners();
+            startGame(data.cards);
         })
         .catch(error => console.error('Erro ao carregar as cartas:', error));
+}
+
+// Nova função para iniciar/reiniciar o jogo
+function startGame(cards) {
+    const memoryGame = document.querySelector('.memory-game');
+    memoryGame.innerHTML = ''; // Limpa o tabuleiro
+    createCards(cards);
+    addEventListeners();
+    resetBoard();
 }
 
 // Função para adicionar event listeners
 function addEventListeners() {
     const cards = document.querySelectorAll('.memory-card');
     cards.forEach(card => card.addEventListener('click', flipCard));
+    
+    // Adicionar evento de clique ao botão de reiniciar
+    const restartButton = document.querySelector('.btn-restart');
+    restartButton.addEventListener('click', restartGame);
+}
+
+// Nova função para reiniciar o jogo
+function restartGame() {
+    fetch('assets/json/cards.json')
+        .then(response => response.json())
+        .then(data => {
+            startGame(data.cards);
+        })
+        .catch(error => console.error('Erro ao reiniciar o jogo:', error));
 }
 
 // Função para virar a carta
